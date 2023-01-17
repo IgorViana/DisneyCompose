@@ -22,14 +22,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background,
                 ) {
-                    /*Scaffold(
-                        topBar = {
-                        TopAppBar(
-                            title = { Text(text = "Disney App") }
-                        )
-                    }) {
-
-                    }*/
                     Navigation()
                 }
             }
