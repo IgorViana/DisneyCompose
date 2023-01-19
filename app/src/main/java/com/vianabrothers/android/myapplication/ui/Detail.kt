@@ -39,6 +39,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun Detail(onBackCLick: () -> Unit) {
 
+    var isShowingBottomSheet by remember {
+        mutableStateOf(false)
+    }
+
     val viewModel: DetailViewModel = hiltViewModel()
 
     val characterDetail = viewModel.characterDetail.value
@@ -65,8 +69,10 @@ fun Detail(onBackCLick: () -> Unit) {
             CardDetail(characterDetail, onBackCLick) {
                 scope.launch {
                     if (sheetState.isCollapsed) {
+                        isShowingBottomSheet = true
                         sheetState.expand()
                     } else {
+                        isShowingBottomSheet = false
                         sheetState.collapse()
                     }
                 }
@@ -77,7 +83,11 @@ fun Detail(onBackCLick: () -> Unit) {
 }
 
 @Composable
-fun CardDetail(detail: DetailCharacterResponse, onBackCLick: () -> Unit, onImageClick: () -> Unit) {
+fun CardDetail(
+    detail: DetailCharacterResponse,
+    onBackCLick: () -> Unit,
+    onImageClick: () -> Unit
+) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -98,7 +108,11 @@ fun CardDetail(detail: DetailCharacterResponse, onBackCLick: () -> Unit, onImage
 }
 
 @Composable
-fun CharacterMainImage(url: String, onBackCLick: () -> Unit, onImageClick: () -> Unit) {
+fun CharacterMainImage(
+    url: String,
+    onBackCLick: () -> Unit,
+    onImageClick: () -> Unit
+) {
 
     Box(
         modifier = Modifier
@@ -147,7 +161,8 @@ fun CharacterMainImage(url: String, onBackCLick: () -> Unit, onImageClick: () ->
                     .width(250.dp)
                     .clip(RoundedCornerShape(250.dp))
                     .border(1.5.dp, Color.LightGray, CircleShape)
-                    .clickable { onImageClick() },
+                    .clickable { onImageClick() }
+                    .animateContentSize(),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center
             )
