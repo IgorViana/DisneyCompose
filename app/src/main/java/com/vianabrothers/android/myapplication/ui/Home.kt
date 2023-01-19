@@ -118,7 +118,6 @@ fun CharacterItem(character: DisneyCharactersResponse, onCharacterSelected: (url
             maxLines = 2
         )
     }
-
 }
 
 @Preview(widthDp = 300, heightDp = 600, backgroundColor = 0xFF03A9F4)
